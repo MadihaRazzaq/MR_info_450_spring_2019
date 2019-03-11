@@ -17,7 +17,7 @@ public:
 	void set_compensation(int v) 
 	{
 		if (emp_typ) { v = v * 2000; compensation = v; }
-		else compensation = v;
+	    compensation = v;
 	
 	}
 

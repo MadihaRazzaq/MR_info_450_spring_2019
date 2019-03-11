@@ -25,8 +25,8 @@ public:
 	void printEntry() {
 		if (last_name) {
 			cout << last_name << ", ";
-			cout << first_name << ", ";
-			cout << ": $ " << compensation << endl;
+			cout << first_name;
+			cout << " : $ " << compensation << endl;
 			
 		}
 	}

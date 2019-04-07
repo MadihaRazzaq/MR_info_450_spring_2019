@@ -57,9 +57,9 @@ void node::print_data() {
 
 int main() {
 	node linked_list;
+	char myvalue[20];
 	bool c = true;
 	int value;
-	road_vehicle data;
 	while (c)
 	{
 		cout << "Is this an automobile or a truck? Enter 'automobile' or 'truck'" << endl;

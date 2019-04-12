@@ -8,6 +8,7 @@ using namespace std;
 class road_vehicle {
 	int wheels;
 	int passengers;
+	string vtype;
 	string ct;
 public:
 	void set_wheels(int num) {
@@ -22,6 +23,15 @@ public:
 	int get_passengers() {
 		return passengers;
 	}
+	void set_vtype(string str)
+	{
+		vtype = str;
+	}
+	string get_vtype()
+	{
+		return vtype;
+	}
+
 	void set_str(string str)
 	{
 		ct = str;
@@ -67,6 +77,7 @@ class node
 
 ostream &operator<<(ostream &stream, road_vehicle data)
 {
+	stream << data.get_vtype() << endl;
 	stream << data.get_wheels() << endl;
 	stream << data.get_passengers() << endl;
 	stream << data.get_str() << endl;
@@ -100,6 +111,7 @@ int main() {
 	{
 		cout << "Is this an automobile or a truck? Enter 'automobile' or 'truck'" << endl;
 		getline(cin, myvalue);
+		vehicle.set_vtype(myvalue);
 		if (myvalue == "truck")
 		{
 			cout << "How many wheels does this vehicle have?" << endl;
@@ -140,7 +152,7 @@ int main() {
 		}
 		linked_list.insert(vehicle);
 		cout << "Do you wish to make another entry?" << endl;
-		cout << " Enter 1 for yes and 0 for no" << endl;
+		cout << "Enter 1 for yes and 0 for no" << endl;
 		cin >> c;
 		cin.ignore();
 		

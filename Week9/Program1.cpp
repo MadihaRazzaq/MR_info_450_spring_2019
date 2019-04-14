@@ -1,7 +1,7 @@
-//Demonstrate inheritance
 #include <iostream>
 #include<string>
 #include <stdlib.h>
+#include<fstream>
 using namespace std;
 
 ///Define the base class for vehicles
@@ -64,7 +64,8 @@ public:
 	enum type get_str() { return car_type; }
 };
 class node
-{public:
+{
+public:
 	road_vehicle data;
 	node *next;
 	node()
@@ -86,8 +87,8 @@ ostream &operator<<(ostream &stream, road_vehicle data)
 
 void node::print_data() {
 	cout << data;
+
 	if (next != NULL) { return next->print_data(); }
-	//return next->print_data();
 }
 void node::insert(road_vehicle v) {
 	if (next == NULL) {
@@ -97,11 +98,14 @@ void node::insert(road_vehicle v) {
 	else {
 		next->insert(v);
 	}
+
 }
 
 
 
 int main() {
+	ofstream out;
+	out.open("C:/Users/Madiha/Desktop/mr_info_450_spring_2019/out.txt");
 	node linked_list;
 	road_vehicle vehicle;
 	string myvalue;
@@ -116,18 +120,15 @@ int main() {
 		{
 			cout << "How many wheels does this vehicle have?" << endl;
 			cin >> value;
-			//linked_list.data.set_wheels(value);
 			vehicle.set_wheels(value);
 
 			cout << "How many passengers can this vehicle hold?" << endl;
 			cin >> value;
-			//linked_list.data.set_passengers(value);
 			vehicle.set_passengers(value);
 
 			cout << "How much cargo (in pounds) can this vehicle hold?" << endl;
 			cin >> value;
 			string i = to_string(value);
-			//linked_list.data.set_str(i);
 			vehicle.set_str(i);
 
 		}
@@ -136,29 +137,31 @@ int main() {
 		{
 			cout << "How many wheels does this vehicle have?" << endl;
 			cin >> value;
-			//linked_list.data.set_wheels(value);
 			vehicle.set_wheels(value);
 
 			cout << "How many passengers can this vehicle hold?" << endl;
 			cin >> value;
-			//linked_list.data.set_passengers(value);
-		    vehicle.set_passengers(value);
+			vehicle.set_passengers(value);
 
 			cin.ignore();
 			cout << "What type of automobile is this?   Enter van, car or wagon" << endl;
-			getline(cin,myvalue);
-			//linked_list.data.set_str(myvalue);
+			getline(cin, myvalue);
 			vehicle.set_str(myvalue);
 		}
+		out << vehicle;
 		linked_list.insert(vehicle);
+
 		cout << "Do you wish to make another entry?" << endl;
 		cout << "Enter 1 for yes and 0 for no" << endl;
 		cin >> c;
 		cin.ignore();
-		
+
 	}
-	
+
 	linked_list.print_data();
+
+	out.close();
 	system("pause");
 	return 0;
 }
+

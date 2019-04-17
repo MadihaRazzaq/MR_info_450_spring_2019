@@ -105,7 +105,7 @@ void node::insert(road_vehicle v) {
 
 int main() {
 	ofstream out;
-	out.open("C:/Users/Madiha/Desktop/mr_info_450_spring_2019/out.txt");
+	out.open("output.txt");
 	node linked_list;
 	road_vehicle vehicle;
 	string myvalue;

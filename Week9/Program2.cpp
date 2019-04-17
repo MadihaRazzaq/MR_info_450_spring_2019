@@ -6,21 +6,21 @@ using namespace std;
 
 ///Define the base class for vehicles
 class road_vehicle {
-	int wheels;
-	int passengers;
+	string wheels;
+	string passengers;
 	string vtype;
 	string ct;
 public:
-	void set_wheels(int num) {
+	void set_wheels(string num) {
 		wheels = num;
 	}
-	int get_wheels() {
+	string get_wheels() {
 		return wheels;
 	}
-	void set_passengers(int num) {
+	void set_passengers(string num) {
 		passengers = num;
 	}
-	int get_passengers() {
+	string get_passengers() {
 		return passengers;
 	}
 	void set_str(string str)
@@ -44,12 +44,12 @@ public:
 
 //Define a truck
 class truck : public road_vehicle {
-	int cargo;
+	string cargo;
 public:
-	void set_str(int size) {
+	void set_str(string size) {
 		cargo = size;
 	}
-	int get_str() {
+	string get_str() {
 		return cargo;
 	}
 };
@@ -84,10 +84,26 @@ ostream &operator<<(ostream &stream, road_vehicle data)
 	return stream;
 }
 
-void node::print_data() {
-	cout << data;
-	if (next != NULL) { return next->print_data(); }
-	//return next->print_data();
+void node::print_data()
+{
+	if (data.get_vtype() == "truck" || data.get_vtype() == "automobile") {
+		cout << "{\"road_vehicle\": \"" << data.get_vtype() << "\"";
+		cout << ", \"wheels\": " << data.get_wheels();
+		cout << ", \"passengers\": " << data.get_passengers();
+		if (data.get_vtype() == "truck") {
+
+			cout << ", \"cargo\": " << data.get_str() << "}" << endl;
+		}
+		else
+		{
+			cout << ", \"type\": \"" << data.get_str() << "\"}" << endl;
+		}
+	}
+	if (next != NULL) {
+		return next->print_data();
+	}
+
+
 }
 void node::insert(road_vehicle v) {
 	if (next == NULL) {
@@ -100,53 +116,57 @@ void node::insert(road_vehicle v) {
 }
 
 
- 
+
 int main()
 {
 	road_vehicle vehicle;
 	node linked_list;
-	int value,w,p,c;
-	char myvalue[255];
+	string value, w, p, c;
 	string str;
 	string vtype;
+	string currentValue;
 	ifstream in;
-	//in.open("C:/Users/Madiha/Desktop/mr_info_450_spring_2019/Week9/Program2/Program2/output.txt");
-	in.open("C:/Users/Madiha/Desktop/mr_info_450_spring_2019/output.txt");
+	int i = 0;
 
-	while (in) 
-	{
-		
-		in.getline(myvalue,255);// delim defaults to '\n'
-		in >> vtype;
-		//cout <<vtype;
-		in.getline(myvalue, 255);
-		w= atoi(myvalue) ;
-		//cout << w;
-		in.getline(myvalue, 255);
-		p= atoi(myvalue) ;
-		//cout << p;
-		in.getline(myvalue, 255);
-		if (vtype == "truck")
-		{
-			c = atoi(myvalue);
-		}
-		else
-		{
+	std::ifstream file("output.txt");
+	if (file.is_open()) {
+		string line;
+		while (getline(file, line)) {
 
-			in >> str;
-		}
-		//cout << str;
-			
-		vehicle.set_vtype(vtype);
-		vehicle.set_wheels(w);
-		vehicle.set_passengers(p);
-		vehicle.set_str(str);
-		linked_list.insert(vehicle);
+			currentValue = line;
 
-		
+			if (currentValue == "truck")
+			{
+				vtype = currentValue;
+				getline(file, line);
+				w = line;
+				getline(file, line);
+				p = line;
+				getline(file, line);
+				str = line;
+			}
+			else if (currentValue == "automobile")
+			{
+				vtype = currentValue;
+				getline(file, line);
+				w = line;
+				getline(file, line);
+				p = line;
+				getline(file, line);
+				str = line;
+			}
+			vehicle.set_vtype(vtype);
+
+			vehicle.set_wheels(w);
+			vehicle.set_passengers(p);
+			vehicle.set_str(str);
+			linked_list.insert(vehicle);
 		}
-	linked_list.print_data();
+		linked_list.print_data();
+		file.close();
+
+	}
+
 	in.close();
-	system("pause");
 	return 0;
 }

@@ -23,15 +23,6 @@ public:
 	int get_passengers() {
 		return passengers;
 	}
-	void set_vtype(string str)
-	{
-		vtype = str;
-	}
-	string get_vtype()
-	{
-		return vtype;
-	}
-
 	void set_str(string str)
 	{
 		ct = str;
@@ -40,6 +31,14 @@ public:
 	string get_str()
 	{
 		return ct;
+	}
+	void set_vtype(string str)
+	{
+		vtype = str;
+	}
+	string get_vtype()
+	{
+		return vtype;
 	}
 };
 
@@ -87,8 +86,8 @@ ostream &operator<<(ostream &stream, road_vehicle data)
 
 void node::print_data() {
 	cout << data;
-
 	if (next != NULL) { return next->print_data(); }
+	//return next->print_data();
 }
 void node::insert(road_vehicle v) {
 	if (next == NULL) {
@@ -98,71 +97,56 @@ void node::insert(road_vehicle v) {
 	else {
 		next->insert(v);
 	}
-
 }
 
 
-
-int main() {
-	ofstream out;
-	out.open("output.txt");
-	node linked_list;
+ 
+int main()
+{
 	road_vehicle vehicle;
-	string myvalue;
-	bool c = true;
-	int value;
-	while (c)
+	node linked_list;
+	int value,w,p,c;
+	char myvalue[255];
+	string str;
+	string vtype;
+	ifstream in;
+	//in.open("C:/Users/Madiha/Desktop/mr_info_450_spring_2019/Week9/Program2/Program2/output.txt");
+	in.open("C:/Users/Madiha/Desktop/mr_info_450_spring_2019/out.txt");
+
+	while (in) 
 	{
-		cout << "Is this an automobile or a truck? Enter 'automobile' or 'truck'" << endl;
-		getline(cin, myvalue);
-		vehicle.set_vtype(myvalue);
-		if (myvalue == "truck")
+		
+		in.getline(myvalue,255);// delim defaults to '\n'
+		in >> vtype;
+		//cout <<vtype;
+		in.getline(myvalue, 255);
+		w= atoi(myvalue) ;
+		//cout << w;
+		in.getline(myvalue, 255);
+		p= atoi(myvalue) ;
+		//cout << p;
+		in.getline(myvalue, 255);
+		if (vtype == "truck")
 		{
-			cout << "How many wheels does this vehicle have?" << endl;
-			cin >> value;
-			vehicle.set_wheels(value);
-
-			cout << "How many passengers can this vehicle hold?" << endl;
-			cin >> value;
-			vehicle.set_passengers(value);
-
-			cout << "How much cargo (in pounds) can this vehicle hold?" << endl;
-			cin >> value;
-			string i = to_string(value);
-			vehicle.set_str(i);
-
+			c = atoi(myvalue);
 		}
 		else
-
 		{
-			cout << "How many wheels does this vehicle have?" << endl;
-			cin >> value;
-			vehicle.set_wheels(value);
 
-			cout << "How many passengers can this vehicle hold?" << endl;
-			cin >> value;
-			vehicle.set_passengers(value);
-
-			cin.ignore();
-			cout << "What type of automobile is this?   Enter van, car or wagon" << endl;
-			getline(cin, myvalue);
-			vehicle.set_str(myvalue);
+			in >> str;
 		}
-		out << vehicle;
+		//cout << str;
+			
+		vehicle.set_vtype(vtype);
+		vehicle.set_wheels(w);
+		vehicle.set_passengers(p);
+		vehicle.set_str(str);
 		linked_list.insert(vehicle);
 
-		cout << "Do you wish to make another entry?" << endl;
-		cout << "Enter 1 for yes and 0 for no" << endl;
-		cin >> c;
-		cin.ignore();
-
-	}
-
+		
+		}
 	linked_list.print_data();
-
-	out.close();
+	in.close();
 	system("pause");
 	return 0;
 }
-
-//trying to change folder name

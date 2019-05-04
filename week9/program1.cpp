@@ -109,9 +109,9 @@ int main() {
 	node linked_list;
 	road_vehicle vehicle;
 	string myvalue;
-	bool c = true;
+	string c = "yes" ;
 	int value;
-	while (c)
+	while (c == "yes")
 	{
 		cout << "Is this an automobile or a truck? Enter 'automobile' or 'truck'" << endl;
 		getline(cin, myvalue);
@@ -152,7 +152,7 @@ int main() {
 		linked_list.insert(vehicle);
 
 		cout << "Do you wish to make another entry?" << endl;
-		cout << "Enter 1 for yes and 0 for no" << endl;
+		cout << "Enter yes or no" << endl;
 		cin >> c;
 		cin.ignore();
 
